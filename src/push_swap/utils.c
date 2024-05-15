@@ -1,8 +1,5 @@
 #include "../../includes/push_swap.h"
 
-
-// This function finds and returns the smallest number
-// in the given stack and its position
 int	ft_max_pos(t_stack *a)
 {
 	int		i;
@@ -24,8 +21,6 @@ int	ft_max_pos(t_stack *a)
 	return (k);
 }
 
-// This function finds and returns the smallest number
-// in the given stack and its position
 int	ft_min_pos(t_stack *a)
 {
 	int		i;
@@ -47,8 +42,6 @@ int	ft_min_pos(t_stack *a)
 	return (k);
 }
 
-// This function finds and returns the smallest number
-// in the given stack
 int	ft_min(t_stack *a)
 {
 	int		i;
@@ -63,8 +56,6 @@ int	ft_min(t_stack *a)
 	return (i);
 }
 
-// This function finds and returns the biggest number
-// in the given stack.
 int	ft_max(t_stack *a)
 {
 	int		i;
@@ -75,35 +66,6 @@ int	ft_max(t_stack *a)
 		if (a->nbr > i)
 			i = a->nbr;
 		a = a->next;
-	}
-	return (i);
-}
-
-// This function checks the index of a number
-// 	 in the stack.
-int	ft_find_index(t_stack *a, int nbr)
-{
-	int		i;
-
-	i = 0;
-	while (a->nbr != nbr)
-	{
-		i++;
-		a = a->next;
-	}
-	a->index = 0;
-	return (i);
-}
-
-int	ft_listsize(t_stack *lst)
-{
-	size_t	i;
-
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
 	}
 	return (i);
 }
