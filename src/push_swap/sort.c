@@ -27,135 +27,97 @@ void ft_rotate_a(t_stack **stack_a){
 }
 
 
+void ft_best_fit_in_b(t_stack **head_a, t_stack **head_b, t_var *var){
 
-int ft_rrr_or_rr(int cost, t_stack *stack_b){
-
-	int size = 0;
-	int avg = 0;
-
-	size = ft_listsize(stack_b);
-	avg = size / 2;
-	if (cost <= avg){
-		return (1);
-	}
-	else
-		return(0);
-
+		while((*head_b)->next != NULL){
+				if (var->i < (*head_b)->next->nbr && (*head_b)->next->nbr < (*head_a)->nbr){
+					var->i = (*head_b)->next->nbr;
+					*head_b = (*head_b)->next;
+					var->j++;
+					var->k = var->j;
+				}
+				else {
+					(*head_b) = (*head_b)->next;
+					var->j++;
+				}
+			}
 }
 
-int ft_calculate_cost(t_stack *stack_a, t_stack *stack_b){
+void ft_skip_head(t_stack **head, t_var *var){
 
-	int j;
-	int i;
-	int k;
-	int pos;
-	t_stack *head_b;
-	t_stack *head_a;
+		var->i = (*head)->next->nbr;
+		*head = (*head)->next;
+		var->j++;
+		var->k = var->j;
+}
+
+int ft_calculate_cost(t_stack *stack_a, t_stack *stack_b, t_var *var){
 
 	if ((stack_a)->nbr < ft_min(stack_b)){
-		pos = ft_max_pos(stack_b);
-		return (pos);
+		var->pos = ft_max_pos(stack_b);
+		return (var->pos);
 	}
-	
-	j = 0;
-	k = 0;
+	t_stack *head_b;
+	t_stack *head_a;
 	head_b = copyList(stack_b);
 	head_a = copyList(stack_a);
-	i = head_b->nbr;
+	var->j = 0;
+	var->k = 0;
+	var->i = head_b->nbr;
 	while (head_b != NULL){
-		if (stack_a->nbr < i){
-			i = stack_b->next->nbr;
-			stack_b = stack_b->next;
-			j++;
-			k = j;
-		}
+		if (head_a->nbr < var->i)
+			ft_skip_head(&head_b, var);
 		else {
-			while(stack_b->next != NULL){
-				if (i < stack_b->next->nbr && stack_b->next->nbr < stack_a->nbr){
-					i = stack_b->next->nbr;
-					stack_b = stack_b->next;
-					j++;
-					k = j;
-				}
-				else {
-					stack_b = stack_b->next;
-					j++;
-				}
-			}
-			return(k);
+			ft_best_fit_in_b(&head_a, &head_b, var);
+			ft_free(&head_a);
+			ft_free(&head_b);
+			return(var->k);
 		}
 	}
-
-
-
-
-	// i = stack_b->nbr;
-	// while (stack_b != NULL){
-	// 	if (stack_a->nbr < i){
-	// 		i = stack_b->next->nbr;
-	// 		stack_b = stack_b->next;
-	// 		j++;
-	// 		k = j;
-	// 	}
-	// 	else {
-	// 		while(stack_b->next != NULL){
-	// 			if (i < stack_b->next->nbr && stack_b->next->nbr < stack_a->nbr){
-	// 				i = stack_b->next->nbr;
-	// 				stack_b = stack_b->next;
-	// 				j++;
-	// 				k = j;
-	// 			}
-	// 			else {
-	// 				stack_b = stack_b->next;
-	// 				j++;
-	// 			}
-	// 		}
-	// 		return(k);
-	// 	}
-	// }
 	return(0);
 }
 
-int ft_calculate_cost_to_a(t_stack *stack_a, t_stack *stack_b){
+void ft_best_fit_in_a(t_stack **head_a, t_stack **head_b, t_var *var){
 
-	int j;
-	int i;
-	int k;
-	int pos;
-
-	if ((stack_b)->nbr > ft_max(stack_a)){
-		pos = ft_min_pos(stack_a);
-		return (pos);
-	}
-	
-	j = 0;
-	k = 0;
-	i = stack_a->nbr;
-	while (stack_a != NULL){
-		if (stack_b->nbr > i){
-			i = stack_a->next->nbr;
-			stack_a = stack_a->next;
-			j++;
-			k = j;
+	while((*head_a)->next != NULL){
+		if (var->i > (*head_a)->next->nbr && (*head_a)->next->nbr > (*head_b)->nbr){
+			var->i = (*head_a)->next->nbr;
+			*head_a = (*head_a)->next;
+			var->j++;
+			var->k = var->j;
 		}
 		else {
-			while(stack_a->next != NULL){
-				if (i > stack_a->next->nbr && stack_a->next->nbr > stack_b->nbr){
-					i = stack_a->next->nbr;
-					stack_a = stack_a->next;
-					j++;
-					k = j;
-				}
-				else {
-					stack_a = stack_a->next;
-					j++;
-				}
-			}
-			return(k);
+			*head_a = (*head_a)->next;
+			var->j++;
+		}
+	}
+}
+
+
+int ft_calculate_cost_to_a(t_stack *stack_a, t_stack *stack_b, t_var *var){
+
+	if ((stack_b)->nbr > ft_max(stack_a)){
+		var->pos = ft_min_pos(stack_a);
+		return (var->pos);
+	}
+	t_stack *head_b;
+	t_stack *head_a;
+	head_b = copyList(stack_b);
+	head_a = copyList(stack_a);
+	var->j = 0;
+	var->k = 0;
+	var->i = head_a->nbr;
+	while (head_a != NULL){
+		if (head_b->nbr > var->i)
+			ft_skip_head(&head_a, var);
+		else {
+			ft_best_fit_in_a(&head_a, &head_b, var);
+			ft_free(&head_a);
+			ft_free(&head_b);
+			return(var->k);
 		}
 	}
 	return(0);
-
 }
 
 void ft_lower_and_or_lower(t_var *var){
@@ -197,11 +159,11 @@ void ft_new_least_exp_element(t_var *var){
 	var->og = var->original_cost;
 }
 
-void ft_initialize(t_stack *stack_a, t_stack *stack_b, t_var *var){
+void ft_initialize_cost(t_stack *stack_a, t_stack *stack_b, t_var *var){
 
 			var->cost_a = 0;
 			var->b = 0;
-			var->z = ft_calculate_cost(stack_a, stack_b);
+			var->z = ft_calculate_cost(stack_a, stack_b, var);
 			var->og = var->z;
 			var->size_a = ft_listsize(stack_a);
 			var->size_b = ft_listsize(stack_b);
@@ -209,10 +171,10 @@ void ft_initialize(t_stack *stack_a, t_stack *stack_b, t_var *var){
 
 int ft_calculate_b(t_stack *stack_a, t_stack *stack_b, t_var *var){
 
-			ft_initialize(stack_a, stack_b, var);
+			ft_initialize_cost(stack_a, stack_b, var);
 
 			while(stack_a){
-				var->cost_b = ft_calculate_cost(stack_a, stack_b);
+				var->cost_b = ft_calculate_cost(stack_a, stack_b, var);
 				var->original_cost = var->cost_b;
 				if (var->cost_a <= var->size_a / 2 && var->cost_b <= var->size_b / 2)
 					ft_lower_and_or_lower(var);
@@ -329,15 +291,19 @@ void ft_rra_and_rb(t_stack **stack_a, t_stack **stack_b, t_var *var){
 	}
 }
 
+void ft_initialize_main(t_stack *stack_a, t_stack *stack_b, t_var *var){
+
+			var->cost_a = ft_calculate_b(stack_a, stack_b, var);
+			var->cost_b = var->og;
+			var->size_b = ft_listsize(stack_b);
+			var->size_a = ft_listsize(stack_a);
+}
+
 void	ft_move_to_b_till_3(t_stack **stack_a, t_stack **stack_b, t_var *var)
 {
 	while (ft_listsize(*stack_a) > 3 && !ft_checksorted(*stack_a))
 	{
-			var->cost_a = ft_calculate_b(*stack_a, *stack_b, var);
-			var->cost_b = var->og;
-			var->size_b = ft_listsize(*stack_b);
-			var->size_a = ft_listsize(*stack_a);
-
+			ft_initialize_main(*stack_a, *stack_b, var);
 			if (var->cost_a <= var->size_a / 2 && var->cost_b <= var->size_b / 2){
 					if (var->cost_b > 0 && var->cost_a > 0 && var->cost_b < var->cost_a)
 						ft_rr_and_ra(stack_a, stack_b, var);
@@ -400,7 +366,7 @@ t_stack	*ft_sort_b(t_stack **stack_a, t_var *var)
 	return (stack_b);
 }
 
-void ft_pushback_to_a(t_stack **stack_a, t_stack **stack_b){
+void ft_pushback_to_a(t_stack **stack_a, t_stack **stack_b, t_var *var){
 
 	int z = 0;
 	int size_a;
@@ -408,7 +374,7 @@ void ft_pushback_to_a(t_stack **stack_a, t_stack **stack_b){
 
 	while(*stack_b){
 		size_a = ft_listsize(*stack_a);
-		z = ft_calculate_cost_to_a(*stack_a, *stack_b);
+		z = ft_calculate_cost_to_a(*stack_a, *stack_b, var);
 		if (z <= size_a / 2){
 			while (z > 0){
 				ft_ra(stack_a, 0);
@@ -430,14 +396,13 @@ void ft_pushback_to_a(t_stack **stack_a, t_stack **stack_b){
 void	ft_sort(t_stack **stack_a, t_var *var)
 {
     t_stack	*stack_b;
-	int		i;
-	i = 0;
 
 	stack_b = NULL;
 	if (ft_listsize(*stack_a) == 2)
 		ft_sa(stack_a, 0);
-    else
-        stack_b = ft_sort_b(stack_a, var);	
-	ft_pushback_to_a(stack_a, &stack_b);
+    else{
+        stack_b = ft_sort_b(stack_a, var);
+	}
+	ft_pushback_to_a(stack_a, &stack_b, var);
 }
 

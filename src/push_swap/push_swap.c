@@ -79,6 +79,21 @@ int	main(int argc, char **argv)
 	// 		 current = current->next;
 	// 	}
 	// }
+	int i = 0;
+	if (a)
+	{
+		printf("Checking if everyting is in ascending order...\n");
+		t_stack *current1 = a;
+		while (current1!= NULL && current1->next->nbr > current1->nbr)
+		{	
+			i++;
+			 current1 = current1->next;
+			 if (current1->next == NULL){
+			 	break;
+			 }
+		}
+		printf("Everything is ok if i is %d!\n", i);
+	}
 	ft_free(&a);
 	return (0);
 }

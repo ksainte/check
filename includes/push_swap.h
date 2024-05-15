@@ -29,7 +29,11 @@ typedef struct s_var
 	int original_cost;
 	int z;
 	int b;
-	int k;
+	int j;
+	int i;
+	int pos;
+	t_stack *head_b;
+	t_stack *head_a;
 }	t_var;
 
 
