@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   commands_b.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ks19 <ks19@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 10:10:42 by ks19              #+#    #+#             */
+/*   Updated: 2024/05/16 10:10:43 by ks19             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/push_swap.h"
 
 void	ft_pb(t_stack **stack_a, t_stack **stack_b, int j)
@@ -14,7 +26,7 @@ void	ft_pb(t_stack **stack_a, t_stack **stack_b, int j)
 		write(1, "pb\n", 3);
 }
 
-// rb (rotate b) : shift up all elements of stack b by 1. 
+// rb (rotate b) : shift up all elements of stack b by 1.
 // The first element becomes the last one.
 void	ft_rb(t_stack **b, int j)
 {
@@ -31,7 +43,7 @@ void	ft_rb(t_stack **b, int j)
 		write(1, "rb\n", 3);
 }
 
-// sb (swap b) : swap the first 2 elements at the top of stack b. 
+// sb (swap b) : swap the first 2 elements at the top of stack b.
 // Do nothing if there is only one or no elements).
 void	ft_sb(t_stack **b, int j)
 {

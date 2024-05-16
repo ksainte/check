@@ -1,10 +1,21 @@
-# include <unistd.h>
-# include <stddef.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdbool.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ks19 <ks19@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 10:37:17 by ks19              #+#    #+#             */
+/*   Updated: 2024/05/16 10:37:18 by ks19             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 t_stack	*ft_sub_process(char **argv)
 {
@@ -13,7 +24,7 @@ t_stack	*ft_sub_process(char **argv)
 	int		i;
 	int		j;
 
-	a = NULL;	
+	a = NULL;
 	i = 0;
 	tmp = ft_split(argv[1], 32);
 	while (tmp[i])
@@ -53,47 +64,25 @@ t_stack	*ft_process(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_stack	*a = NULL;
-	t_var var;
+	t_stack	*a;
+	t_var	var;
 
+	a = NULL;
 	a = ft_process(argc, argv);
 	if (!a || ft_checkdup(a))
 	{
 		ft_free(&a);
 		ft_error();
 	}
-	if (ft_checksorted(a, &var)){
+	if (ft_checksorted(a, &var))
+	{
 		ft_sortsorted(&a, &var);
 	}
-	else {
+	else
+	{
 		ft_sort(&a, &var);
 	}
-	// if (a)
-	// {	
-	// 	printf("This is the stack a after:\n");
-	// 	t_stack *current = a;
-	// 	while (current){
-	// 		 printf("%ld\n", current->nbr);
-	// 		 current = current->next;
-	// 	}
-	// }
-	// int i = 0;
-	// if (a)
-	// {
-	// 	printf("Checking if everyting is in ascending order...\n");
-	// 	t_stack *current1 = a;
-	// 	while (current1!= NULL && current1->next->nbr > current1->nbr)
-	// 	{	
-	// 		i++;
-	// 		 current1 = current1->next;
-	// 		 if (current1->next == NULL){
-	// 		 	break;
-	// 		 }
-	// 	}
-	// 	printf("Everything is ok if i is %d!\n", i);
-	// }
 	ft_free(&a);
 	// ft_free(var);
 	return (0);
 }
-

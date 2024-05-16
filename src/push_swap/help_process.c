@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help_process.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ks19 <ks19@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 10:34:30 by ks19              #+#    #+#             */
+/*   Updated: 2024/05/16 10:34:54 by ks19             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/push_swap.h"
 
 int	ft_atoi2(const char *str)
@@ -52,7 +64,7 @@ t_stack	*ft_stack_new(int content)
 {
 	t_stack	*new;
 
-	new = malloc(sizeof (t_stack));
+	new = malloc(sizeof(t_stack));
 	if (!new)
 		ft_error();
 	new->nbr = content;

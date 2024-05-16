@@ -32,8 +32,6 @@ typedef struct s_var
 	int j;
 	int i;
 	int pos;
-	t_stack *head_b;
-	t_stack *head_a;
 }	t_var;
 
 t_stack		*ft_stack_new(int content);
@@ -65,7 +63,7 @@ int		ft_max_pos(t_stack *a);
 void	ft_rr(t_stack **a, t_stack **b, int j);
 void	ft_rrr(t_stack **a, t_stack **b, int j);
 void	ft_sortsorted(t_stack **stack_a, t_var *var);
-t_stack *copyList(t_stack *head);
+t_stack *copylist(t_stack *head);
 int ft_calculate_cost(t_stack *stack_a, t_stack *stack_b, t_var *var);
 void ft_lower_and_or_lower(t_var *var);
 void ft_lower_and_higher(t_var *var);
@@ -78,7 +76,7 @@ void ft_rr_and_ra(t_stack **stack_a, t_stack **stack_b, t_var *var);
 void ft_rr_and_rb(t_stack **stack_a, t_stack **stack_b, t_var *var);
 void ft_ra_or_rb(t_stack **stack_a, t_stack **stack_b, t_var *var);
 void ft_ra_and_rrb(t_stack **stack_a, t_stack **stack_b, t_var *var);
-void ft_rotate_a(t_stack **stack_a);
+void ft_rotate_a(t_stack **stack_a, t_var *var);
 void ft_rrr_and_rra(t_stack **stack_a, t_stack **stack_b, t_var *var);
 void ft_rrr_and_rrb(t_stack **stack_a, t_stack **stack_b, t_var *var);
 void ft_rra_and_rb(t_stack **stack_a, t_stack **stack_b, t_var *var);
