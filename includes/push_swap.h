@@ -81,8 +81,8 @@ void ft_rrr_and_rra(t_stack **stack_a, t_stack **stack_b, t_var *var);
 void ft_rrr_and_rrb(t_stack **stack_a, t_stack **stack_b, t_var *var);
 void ft_rra_and_rb(t_stack **stack_a, t_stack **stack_b, t_var *var);
 int ft_calculate_cost_to_a(t_stack *stack_a, t_stack *stack_b, t_var *var);
-
-
+t_stack	*ft_add_test(t_stack *stack, t_stack *stack_new);
+// void ft_add_test(t_stack *stack, t_stack *stack_new);
 
 
 #endif

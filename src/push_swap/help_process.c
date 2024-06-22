@@ -6,7 +6,7 @@
 /*   By: ks19 <ks19@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 10:34:30 by ks19              #+#    #+#             */
-/*   Updated: 2024/05/16 10:34:54 by ks19             ###   ########.fr       */
+/*   Updated: 2024/06/22 23:55:19 by ks19             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ void	ft_add_back(t_stack **stack, t_stack *stack_new)
 		*stack = stack_new;
 	else
 		(ft_lastnode(*stack))->next = stack_new;
+}
+
+t_stack	*ft_add_test(t_stack *stack, t_stack *stack_new)
+{
+	if (!stack)
+		stack = stack_new;
+	else
+		(ft_lastnode(stack))->next = stack_new;
+	return(stack);
 }
 
 t_stack	*ft_lastnode(t_stack *lst)
